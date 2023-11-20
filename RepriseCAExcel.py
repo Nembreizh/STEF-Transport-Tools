@@ -100,9 +100,7 @@ def show_mapping_window(column_names, sheet=None, csv_content=None):
     donneur_ordre_var = tk.StringVar()
     def update_output_preview_csv():
         output_content_text.delete(1.0, tk.END)
-        print("Updating CSV Preview:")
         for row in csv_content:
-            print("Row:", row)
             csv_row = []
             for column_name, default_value in OUTPUT_COLUMNS.items():
                 if column_mappings[column_name] is not None and row[column_mappings[column_name]] != '':
@@ -123,7 +121,7 @@ def show_mapping_window(column_names, sheet=None, csv_content=None):
             for row in sheet.iter_rows(min_row=2, values_only=True):
                 csv_row = []
                 for column_name, default_value in OUTPUT_COLUMNS.items():
-                    if column_mappings[column_name] is not None and row[column_mappings[column_name]] != '':
+                    if column_mappings[column_name] is not None and row[column_mappings[column_name]] not in [None, 'None', '', 'NA', '#NA']:
                         csv_row.append(row[column_mappings[column_name]])
                     elif default_value is not None:
                         csv_row.append(default_value)
